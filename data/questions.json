@@ -1,0 +1,106 @@
+{
+  "BOX_1": [
+    {
+      "topic": "Regarding transfusion",
+      "questions": [
+        "a) Name some common products that are transfused.",
+        "b) What are the complications of blood transfusion?",
+        "c) How to manage mismatched blood transfusion?"
+      ]
+    },
+    {
+      "topic": "Regarding Massive Blood Transfusion",
+      "questions": [
+        "a) Define Massive Blood Transfusion.",
+        "b) What are the complications of Massive Blood Transfusion?",
+        "c) What precautions are to be taken during Massive Blood Transfusion?"
+      ]
+    },
+    {
+      "topic": "Regarding General Anaesthesia (GA)",
+      "questions": [
+        "a) What are the components of GA?",
+        "b) How will you assess a patient for GA?",
+        "c) How will you monitor a patient during post-operative recovery phase?"
+      ]
+    }
+  ],
+  "BOX_2": [
+    {
+      "topic": "Regarding circumcision",
+      "questions": [
+        "a) Name the different procedures of circumcision.",
+        "b) What are the complications of circumcision?",
+        "c) Contraindication of circumcision."
+      ]
+    },
+    {
+      "topic": "Regarding testicular descent",
+      "questions": [
+        "a) What is the common location of incompletely descended testis?",
+        "b) What are the complications of incompletely descended testis?",
+        "c) Surgical option for incompletely descended testis."
+      ]
+    },
+    {
+      "topic": "A 16 years old boy developed sudden, severe pain in abdomen which shifted to scrotum. His right hemi-scrotum was swollen and tender.",
+      "questions": [
+        "a) What is the likely diagnosis?",
+        "b) What is the differential diagnosis?",
+        "c) How do you manage the patient?"
+      ]
+    }
+  ],
+  "BOX_3": [
+    {
+      "topic": "A 60-year-old female underwent subtotal thyroidectomy for long-standing multinodular goiter. Four hours later, she becomes dyspneic in the recovery room, but chest findings are normal.",
+      "questions": [
+        "a) What could be the cause of her dyspnea?",
+        "b) What should you do?",
+        "c) What precaution do you have to take to prevent this condition?"
+      ]
+    },
+    {
+      "topic": "A 42-year-old female is a known case of multinodular goiter. Recently, she complains of palpitations, nervousness, and weight loss despite a good appetite.",
+      "questions": [
+        "a) What is your diagnosis, and what other points should be elicited from history?",
+        "b) What investigations will you do?",
+        "c) What may happen if she undergoes surgery without preparation?"
+      ]
+    },
+    {
+      "topic": "Regarding thyrotoxicosis:",
+      "questions": [
+        "a) What are the clinical features?",
+        "b) What precautions do you have to take before operation?",
+        "c) What are the complications of the operation if not made euthyroid?"
+      ]
+    }
+  ],
+  "BOX_4": [
+    {
+      "topic": "In a burn patient",
+      "questions": [
+        "a) Indication of hospital admission.",
+        "b) Fluid management of a burn patient.",
+        "c) Calculation of burn area."
+      ]
+    },
+    {
+      "topic": "In a patient of Gas Gangrene",
+      "questions": [
+        "a) Name the causative organism and clinical feature.",
+        "b) Risk factor of gas gangrene.",
+        "c) Treatment of gas gangrene."
+      ]
+    },
+    {
+      "topic": "Regarding types of fracture",
+      "questions": [
+        "a) Classify fracture clinically and radiologically.",
+        "b) Principle of management of close fracture.",
+        "c) Name some common fractures in children/ peculiarities of childhood fracture?"
+      ]
+    }
+  ]
+}
