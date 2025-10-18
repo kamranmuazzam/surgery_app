@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Practice Tool</title>
+    <style>
+        /* A little bit of styling to make it look clean */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        .setup-section, .grading-section, .results-section {
+            margin-bottom: 30px;
+        }
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Important for padding */
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #reset-btn {
+            background-color: #e74c3c;
+        }
+        #reset-btn:hover {
+            background-color: #c0392b;
+        }
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .question-block {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fdfdfd;
+            transition: all 0.3s ease;
+        }
+        .question-block label {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+        .question-number {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #34495e;
+        }
+        /* Styles for grading results */
+        .correct {
+            background-color: #e8f5e9; /* Light Green */
+            border-left: 5px solid #4caf50; /* Green */
+        }
+        .wrong {
+            background-color: #ffebee; /* Light Red */
+            border-left: 5px solid #f44336; /* Red */
+        }
+        .result-icon {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .result-icon.correct-icon {
+            color: #4caf50;
+        }
+        .result-icon.wrong-icon {
+            color: #f44336;
+        }
+        #results-summary {
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <a href="./index.html">🔙</a>
+    <div class="container">
+        <h1>MCQ Practice Tool</h1>
+
+        <!-- Step 1: Setup the test -->
+        <div id="setup-container" class="setup-section">
+            <h2>Set up your test</h2>
+            <label for="num-questions">How many questions in the test?</label>
+            <input type="number" id="num-questions" placeholder="e.g., 100" min="1">
+            <button onclick="generateQuestions()">Start Answering</button>
+        </div>
+
+        <!-- Step 2: Answer sheet (hidden initially) -->
+        <div id="questions-container" style="display: none;">
+            <h2>Mark your answers</h2>
+            <div id="question-grid" class="question-grid">
+                <!-- Questions will be generated here by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Step 3: Grading section (hidden initially) -->
+        <div id="grading-container" class="grading-section" style="display: none;">
+            <h2>Enter the answer key and grade</h2>
+            <label for="answer-key">Paste the correct answers here (e.g., ABCDABCD...)</label>
+            <input type="text" id="answer-key" placeholder="Enter all answers without spaces, like 'ACDBA...'">
+            <button onclick="gradeTest()">Grade My Test</button>
+            <button id="reset-btn" onclick="resetApp()">Start a New Test</button>
+        </div>
+
+        <!-- Step 4: Results (hidden initially) -->
+        <div id="results-container" class="results-section" style="display: none;">
+            <h2>Results</h2>
+            <div id="results-summary"></div>
+        </div>
+    </div>
+
+    <script>
+        function generateQuestions() {
+            const num = document.getElementById('num-questions').value;
+            if (num < 1 || !num) {
+                alert("Please enter a valid number of questions.");
+                return;
+            }
+
+            const grid = document.getElementById('question-grid');
+            grid.innerHTML = ''; // Clear previous questions
+
+            for (let i = 1; i <= num; i++) {
+                const questionBlock = document.createElement('div');
+                questionBlock.className = 'question-block';
+                questionBlock.id = `q-block-${i}`;
+
+                let optionsHTML = '';
+                const options = ['A', 'B', 'C', 'D'];
+                options.forEach(opt => {
+                    optionsHTML += `
+                        <label>
+                            <input type="radio" name="q${i}" value="${opt}"> ${opt}
+                        </label>
+                    `;
+                });
+
+                questionBlock.innerHTML = `
+                    <span class="question-number">${i}.</span>
+                    ${optionsHTML}
+                    <span id="result-icon-${i}" class="result-icon"></span>
+                `;
+                grid.appendChild(questionBlock);
+            }
+
+            // Show/hide the relevant sections
+            document.getElementById('setup-container').style.display = 'none';
+            document.getElementById('questions-container').style.display = 'block';
+            document.getElementById('grading-container').style.display = 'block';
+            document.getElementById('results-container').style.display = 'none';
+        }
+
+        function gradeTest() {
+            const numQuestions = document.getElementById('num-questions').value;
+            const answerKeyInput = document.getElementById('answer-key').value.toUpperCase().trim();
+
+            if (answerKeyInput.length !== parseInt(numQuestions)) {
+                alert(`Error: You have ${numQuestions} questions, but your answer key has ${answerKeyInput.length} answers. Please ensure they match.`);
+                return;
+            }
+
+            let score = 0;
+            for (let i = 1; i <= numQuestions; i++) {
+                const qBlock = document.getElementById(`q-block-${i}`);
+                const resultIcon = document.getElementById(`result-icon-${i}`);
+                const correctAnswer = answerKeyInput[i - 1];
+                
+                // Find the user's selected answer
+                const userAnswerEl = document.querySelector(`input[name="q${i}"]:checked`);
+                const userAnswer = userAnswerEl ? userAnswerEl.value : null;
+
+                // Reset previous styling
+                qBlock.classList.remove('correct', 'wrong');
+                resultIcon.textContent = '';
+                resultIcon.className = 'result-icon';
+
+                if (userAnswer === correctAnswer) {
+                    score++;
+                    qBlock.classList.add('correct');
+                    resultIcon.textContent = '✓ Correct';
+                    resultIcon.classList.add('correct-icon');
+                } else {
+                    qBlock.classList.add('wrong');
+                    let resultText = `✗ Wrong. Correct was ${correctAnswer}.`;
+                    if (!userAnswer) {
+                        resultText = `✗ Unanswered. Correct was ${correctAnswer}.`;
+                    }
+                    resultIcon.textContent = resultText;
+                    resultIcon.classList.add('wrong-icon');
+                }
+            }
+
+            // Display the final score
+            const percentage = ((score / numQuestions) * 100).toFixed(2);
+            const summary = document.getElementById('results-summary');
+            summary.innerHTML = `You scored ${score} out of ${numQuestions} (${percentage}%)`;
+            
+            if (percentage >= 80) {
+                 summary.style.backgroundColor = '#e8f5e9'; // Green
+                 summary.style.color = '#2e7d32';
+            } else if (percentage >= 50) {
+                 summary.style.backgroundColor = '#fff3e0'; // Orange
+                 summary.style.color = '#ef6c00';
+            } else {
+                 summary.style.backgroundColor = '#ffebee'; // Red
+                 summary.style.color = '#c62828';
+            }
+
+            document.getElementById('results-container').style.display = 'block';
+            window.scrollTo(0, document.body.scrollHeight); // Scroll to the bottom to see results
+        }
+        
+        function resetApp() {
+            // Clear inputs and generated content
+            document.getElementById('num-questions').value = '';
+            document.getElementById('answer-key').value = '';
+            document.getElementById('question-grid').innerHTML = '';
+            document.getElementById('results-summary').innerHTML = '';
+
+            // Reset visibility of sections to the initial state
+            document.getElementById('setup-container').style.display = 'block';
+            document.getElementById('questions-container').style.display = 'none';
+            document.getElementById('grading-container').style.display = 'none';
+            document.getElementById('results-container').style.display = 'none';
+            
+            window.scrollTo(0, 0); // Scroll to top
+        }
+    </script>
+
+</body>
+</html>
